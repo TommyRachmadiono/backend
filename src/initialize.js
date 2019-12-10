@@ -4,9 +4,9 @@ async function connectDatabase() {
   } else {
     const mongoose = require('mongoose')
 
-    const host = process.env.DB_HOST
-    const port = process.env.DB_PORT
-    const database = process.env.DB_DATABASE
+    const host = process.env.DB_HOST || 'localhost'
+    const port = process.env.DB_PORT || 27017
+    const database = process.env.DB_DATABASE || 'acme-bookshop'
 
     const endpoint = `mongodb+srv://${host}:${port}/${database}`
 
@@ -23,7 +23,6 @@ async function createServer() {
   const path = require('path')
   const fs = require('fs')
 
-  const hostname = process.env.APP_HOSTNAME || 'localhost'
   const port = process.env.APP_PORT || 3000
 
   const app = express()
@@ -38,8 +37,8 @@ async function createServer() {
     }
   })
 
-  app.listen(port, hostname, () => {
-    console.log(`Express instance is running at http://${hostname}:${port}`)
+  app.listen(port, () => {
+    console.log(`Express instance is running at http://localhost:${port}`)
   })
 }
 
