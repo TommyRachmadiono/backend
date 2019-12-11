@@ -1,20 +1,16 @@
 async function connectDatabase() {
-  if (process.env.DISABLE_DATABASE) {
-    console.log('DISABLE_DATABASE is set, skipping database connection')
-  } else {
-    const mongoose = require('mongoose')
+  const mongoose = require('mongoose')
 
-    const host = process.env.DB_HOST || 'localhost'
-    const port = process.env.DB_PORT || 27017
-    const database = process.env.DB_DATABASE || 'acme-bookshop'
+  const host = process.env.DB_HOST || 'localhost'
+  const port = process.env.DB_PORT || 27017
+  const database = process.env.DB_DATABASE || 'acme-bookshop'
 
-    const endpoint = `mongodb+srv://${host}:${port}/${database}`
+  const endpoint = `mongodb://${host}:${port}/${database}`
 
-    await mongoose.connect(endpoint, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    })
-  }
+  await mongoose.connect(endpoint, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
 }
 
 async function createServer() {

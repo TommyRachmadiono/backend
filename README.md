@@ -43,9 +43,6 @@ APP_SECRET=supersecret
 DB_HOST=localhost
 DB_PORT=27017
 DB_DATABASE=acme-bookshop
-
-# if enabled, server will not connect to mongodb
-DISABLE_DATABASE=true
 ```
 
 ## Notes
