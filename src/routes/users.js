@@ -6,8 +6,8 @@ const auth = require('../middlewares/auth')
 const User = require('../models/User')
 
 router.post('/register', async (req, res) => {
-  const user = new User(req.body)
   try {
+    const user = new User(req.body)
     await user.save()
     const token = await user.generateAuthToken()
     res.status(sc.CREATED).send({ user, token })
@@ -21,7 +21,7 @@ router.post('/login', async ({ body: { email, password } }, res) => {
     const user = await User.findByCredentials({ email, password })
     const token = await user.generateAuthToken()
     res.send({ user, token })
-  } catch (e) {
+  } catch (error) {
     res.status(sc.INTERNAL_SERVER_ERROR).send({ error })
   }
 })

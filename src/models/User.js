@@ -20,6 +20,7 @@ const UserSchema = new Schema(
           throw new Error('Invalid email address')
         }
       },
+      unique: true,
     },
     password: {
       type: String,
@@ -34,8 +35,10 @@ const UserSchema = new Schema(
         },
       },
     ],
-    avatar: {
-      type: Buffer,
+    role: {
+      type: String,
+      enum: ['USER', 'ADMIN'],
+      default: 'USER',
     },
   },
   {
@@ -43,9 +46,7 @@ const UserSchema = new Schema(
   }
 )
 
-const User = model('User', UserSchema)
-
-UserSchema.methods.generateAuthToken = async () => {
+UserSchema.methods.generateAuthToken = async function() {
   const token = jwt.sign(
     { _id: this._id.toString() },
     process.env.APP_SECRET || 'supersecret'
@@ -53,6 +54,8 @@ UserSchema.methods.generateAuthToken = async () => {
 
   this.tokens.push({ token })
   await this.save()
+
+  return token
 }
 
 UserSchema.statics.findByCredentials = async ({ email, password }) => {
@@ -69,11 +72,13 @@ UserSchema.statics.findByCredentials = async ({ email, password }) => {
   return user
 }
 
-UserSchema.pre('save', async next => {
+UserSchema.pre('save', async function(next) {
   if (this.isModified('password')) {
     this.password = await bcrypt.hash(this.password, 8)
   }
   next()
 })
+
+const User = model('User', UserSchema)
 
 module.exports = User
