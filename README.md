@@ -10,15 +10,20 @@ This is a boilerplate repo for [DCDC bootcamp participants](http://dilo.id/Event
 
 </div>
 
+## Prerequisites
+
+- Node.js >10 and latest npm
+- MongoDB instance
+- (optional) Docker and docker-compose
+
 ## Development
 
-### Prerequisites
+### First steps
 
 1. `git clone https://github.com/acme-bookshop/backend.git acme-bookshop-backend`
 2. `cd acme-bookshop-backend`
 3. `npm install`
 4. Copy `.env.example` to `.env` and configure env vars
-5. `npm start` or `npm watch`
 
 ### Express routers
 
@@ -26,11 +31,11 @@ Routers are dynamically imported from `src/routes`, so you don't need to `app.us
 
 ### Database instance
 
-This repo includes `docker-compose.yml` which runs both the database and the server app. You can use your own database instance and set the `.env` accordingly.
+This repo includes `docker-compose.yml` which runs both the database and build the server app. You can use your own database instance and set the `.env` accordingly, or use `npm run start:db` which runs `docker-compose up -d acme_database` using Docker.
 
 ### Starting server
 
-This repo includes `docker-compose.yml` which runs both the database and the server app. To run manually, make sure the database instance is running and execute `npm start`.
+This repo includes `docker-compose.yml` which runs both the database and build the server app. To run manually, make sure the database instance is running and execute `npm start` or `npm watch`.
 
 ## Configuration
 

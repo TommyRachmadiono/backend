@@ -22,6 +22,7 @@
   },
   "scripts": {
     "start": "node src/index.js",
+    "start:db": "docker-compose up -d acme_database",
     "watch": "nodemon --watch src src/index.js",
     "format": "prettier --config .prettierrc --write src/**/*.js"
   },
