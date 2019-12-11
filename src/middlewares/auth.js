@@ -9,20 +9,26 @@ const User = require('../models/User')
  */
 async function auth(req, res, next) {
   try {
-    const token = req.header('Authorization').replace('Bearer ', '')
+    const bearer = req.header('Authorization')
+
+    if (!bearer) {
+      throw 'Authorization header not found'
+    }
+
+    const token = bearer.replace('Bearer ', '')
     const decoded = jwt.verify(token, process.env.APP_SECRET || 'supersecret')
     const user = await User.findOne({ _id: decoded._id, 'tokens.token': token })
 
     if (!user) {
-      throw new Error('User not found')
+      throw 'User not found'
     }
 
     req.token = token
     req.user = user
 
     next()
-  } catch (e) {
-    res.sendStatus(sc.UNAUTHORIZED)
+  } catch (error) {
+    res.status(sc.UNAUTHORIZED).send({ error })
   }
 }
 
