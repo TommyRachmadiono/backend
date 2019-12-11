@@ -58,6 +58,14 @@ UserSchema.methods.generateAuthToken = async function() {
   return token
 }
 
+UserSchema.methods.toSafeObject = function() {
+  return {
+    _id: this._id,
+    name: this.name,
+    email: this.email,
+  }
+}
+
 UserSchema.statics.findByCredentials = async ({ email, password }) => {
   const user = await User.findOne({ email })
   if (!user) {

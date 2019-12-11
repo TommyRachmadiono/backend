@@ -17,7 +17,7 @@ const BookSchema = new Schema({
   },
   qty: {
     type: Number,
-    required: true,
+    default: 0,
   },
   price: {
     type: Number,

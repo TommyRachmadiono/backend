@@ -1,13 +1,13 @@
-const { model, Schema, SchemaTypes } = require('mongoose')
+const { model, Schema } = require('mongoose')
 
 const TransactionSchema = new Schema({
   user_id: {
-    type: SchemaTypes.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'User',
     required: true,
   },
   book_id: {
-    type: SchemaTypes.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Book',
     required: true,
   },
@@ -26,7 +26,6 @@ const TransactionSchema = new Schema({
   },
   total_price: {
     type: Number,
-    required: true,
   },
 })
 
